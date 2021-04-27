@@ -9,6 +9,7 @@ import javax.persistence.Id;
 public class Option {
 
     public Option() {
+
     }
 
     @Id
@@ -35,4 +36,11 @@ public class Option {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "Option{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

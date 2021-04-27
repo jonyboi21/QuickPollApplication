@@ -25,4 +25,6 @@ public class ComputeResultController {
 // Algorithm to count votes
         return new ResponseEntity<VoteResult>(voteResult, HttpStatus.OK);
     }
+
+
 }

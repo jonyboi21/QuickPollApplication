@@ -6,7 +6,6 @@ import javax.persistence.*;
 public class Vote {
 
 
-
     @Id
     @GeneratedValue
     @Column(name = "VOTE_ID")
@@ -16,6 +15,7 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name = "OPTION_ID")
     private Option option;
+
 
     public Long getId() {
         return id;
@@ -31,5 +31,13 @@ public class Vote {
 
     public void setOption(Option option) {
         this.option = option;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", option=" + option +
+                '}';
     }
 }

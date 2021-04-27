@@ -16,8 +16,7 @@ public class VoteController {
     @Autowired
     private VoteRepository voteRepository;
     @RequestMapping(value="/polls/{pollId}/votes", method= RequestMethod.POST)
-    public ResponseEntity<?> createVote(@PathVariable Long pollId, @RequestBody Vote
-            vote) {
+    public ResponseEntity<?> createVote(@PathVariable Long pollId, @RequestBody Vote vote) {
         vote = voteRepository.save(vote);
 // Set the headers for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -27,8 +26,8 @@ public class VoteController {
     }
 
     @RequestMapping(value="/polls/{pollId}/votes", method=RequestMethod.GET)
-    public Optional<Vote> getAllVotes(@PathVariable Long pollId) {
-        return voteRepository. findById(pollId);
+    public Iterable<Vote> getAllVotes(@PathVariable Long pollId) {
+        return voteRepository.findByPoll(pollId);
     }
 
 
