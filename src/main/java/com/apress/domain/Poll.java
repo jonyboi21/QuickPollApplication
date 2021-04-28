@@ -1,6 +1,9 @@
 package com.apress.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -13,6 +16,7 @@ public class Poll {
     private Long id;
 
     @Column(name="QUESTION")
+    @NotEmpty
     private String question;
 
     @OneToMany(cascade=CascadeType.ALL)
