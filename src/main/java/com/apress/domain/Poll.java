@@ -1,6 +1,7 @@
 package com.apress.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,12 +10,12 @@ import java.util.Set;
 @Entity
 public class Poll {
 
-
     @Id
     @GeneratedValue
     @Column(name = "POLL_ID")
     private Long id;
 
+    @GeneratedValue
     @Column(name="QUESTION")
     @NotEmpty
     private String question;

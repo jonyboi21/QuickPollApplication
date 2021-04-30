@@ -1,32 +1,50 @@
 package com.apress.service;
 
-import com.apress.controller.PollController;
 import com.apress.domain.Poll;
+import com.apress.exception.ResourceNotFoundException;
 import com.apress.repository.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-import java.net.URI;
+import java.util.Optional;
 
+@Service
 public class PollService {
+
     @Autowired
     private PollRepository pollRepository;
 
 
-    public static ResponseEntity<?> createPoll(Poll poll) {
+    public void createPoll(Poll poll) {
+        pollRepository.save(poll);
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newPollUri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(poll.getId())
-                .toUri();
-        responseHeaders.setLocation(newPollUri);
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    public Iterable<Poll> getAllPolls() {
+        return pollRepository.findAll();
+
+        }
+
+
+    public  Optional<Poll> getPollById(Long id){
+        verifyPoll(id);
+        Optional<Poll> p = pollRepository.findById(id);
+        return p;
+    }
+    public void deletePoll(Long id){
+        verifyPoll(id);
+        pollRepository.deleteById(id);
+    }
+    public void updatePoll(Long id, Poll p) {
+        verifyPoll(id);
+        p = pollRepository.save(p);
+
+    }
+    public Poll verifyPoll(Long pollId) throws ResourceNotFoundException {
+        Optional<Poll> poll = pollRepository.findById(pollId);
+        if(poll == null) {
+            throw new ResourceNotFoundException("Poll with id " + pollId + " not found");
+        }
+        return null;
+    }
 }

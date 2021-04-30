@@ -1,19 +1,19 @@
 package com.apress.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
 
 @Entity
 public class Option {
+
 
     public Option() {
 
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "OPTION_ID")
     private Long id;
 

@@ -3,13 +3,11 @@ package com.apress.controller;
 import com.apress.domain.Vote;
 import com.apress.dto.VoteResult;
 import com.apress.repository.VoteRepository;
+import com.apress.service.ComputeResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -17,14 +15,14 @@ import java.util.Optional;
 public class ComputeResultController {
 
     @Autowired
-    private VoteRepository voteRepository;
-    @RequestMapping(value="/computeResult", method= RequestMethod.GET)
-    public ResponseEntity<?> computeResult(@RequestParam Long pollId) {
-        VoteResult voteResult = new VoteResult();
-        Optional<Vote> allVotes = voteRepository.findById(pollId);
-// Algorithm to count votes
+    private ComputeResultService computeResultService;
+
+    @RequestMapping(value="/computeResult/{pollId}", method= RequestMethod.GET)
+    public ResponseEntity<?> computeResult(@PathVariable Long pollId) {
+      VoteResult voteResult = computeResultService.computeAllVotes(pollId);
         return new ResponseEntity<VoteResult>(voteResult, HttpStatus.OK);
     }
+
 
 
 }

@@ -21,4 +21,11 @@ public class OptionCount {
         this.count = count;
     }
 
+    @Override
+    public String toString() {
+        return "OptionCount{" +
+                "optionId=" + optionId +
+                ", count=" + count +
+                '}';
+    }
 }
